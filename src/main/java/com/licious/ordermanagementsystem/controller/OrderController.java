@@ -24,7 +24,7 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<?> createOrder(@NonNull @RequestBody OrderDetails orderDetails) {
         try {
-            Order createdOrder = orderService.createOrder(orderDetails);
+            Order createdOrder = orderService.processOrder(orderDetails);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create order: " + e.getMessage());
