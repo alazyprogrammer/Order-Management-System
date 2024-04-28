@@ -74,7 +74,8 @@ public class OrderProcessor {
                     break;
                 case UPDATE:
                     // Handle update order operation
-                    logger.info("Updating order: " + order);
+                    logger.info("Updating order for ID: {}", order.getOrderId());
+                    orderRepository.create(order);
                     break;
                 case DELETE:
                     // Handle delete order operation

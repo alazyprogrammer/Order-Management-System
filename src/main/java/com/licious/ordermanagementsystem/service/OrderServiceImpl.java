@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.licious.ordermanagementsystem.factory.OrderFactory;
 import com.licious.ordermanagementsystem.model.Order;
 import com.licious.ordermanagementsystem.model.OrderOperation;
+import com.licious.ordermanagementsystem.model.OrderStatus;
 import com.licious.ordermanagementsystem.repository.OrderRepository;
 import com.licious.ordermanagementsystem.utils.OrderProcessor;
 import org.apache.logging.log4j.LogManager;
@@ -26,20 +27,34 @@ public class OrderServiceImpl implements OrderService {
     public Order createOrder(Order order) {
         // Process the order and enqueue it for background processing
         // Convert DTO to domain model
-        Order orderWithId = OrderFactory.generateOrderId(order);
-        Order orderWithStatus = OrderFactory.updateStatus(orderWithId);
+        Order initialOrder = OrderFactory.initializeOrder(order);
         // Save order to concurrent data structure
         logger.info("Adding Order to Order Queue");
-        orderProcessor.enqueueOrder(orderWithStatus, OrderOperation.CREATE);
+        orderProcessor.enqueueOrder(initialOrder, OrderOperation.CREATE);
         return order;
     }
 
     @Override
-    public Order retrieveOrder(String orderId, String cusomterId) {
-        Order order = OrderFactory.createOrder(orderId, cusomterId);
+    public Order retrieveOrder(String orderId) {
         // Retrieving data for an order
         logger.info("Retrieving details of order with ID: {}", orderId);
-        return orderRepository.retrieve(order);
+        return orderRepository.retrieve(orderId);
+    }
+
+    @Override
+    public Order updateOrderStatus(String orderId, OrderStatus orderStatus) {
+        // Updating status for an order
+        Order existingOrder = orderRepository.retrieve(orderId);
+        logger.info("Updating status to {} of order with ID: {}", orderStatus, orderId);
+        Order updatedOrder = OrderFactory.updateStatus(existingOrder, orderStatus);
+        orderProcessor.enqueueOrder(updatedOrder, OrderOperation.UPDATE);
+        return updatedOrder;
+    }
+
+    @Override
+    public Order cancelOrder(String orderId) {
+        // Cancelling an order
+        return this.updateOrderStatus(orderId, OrderStatus.CANCELLED);
     }
 
 }
