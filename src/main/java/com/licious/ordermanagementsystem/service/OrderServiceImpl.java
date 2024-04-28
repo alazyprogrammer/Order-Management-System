@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.licious.ordermanagementsystem.factory.OrderFactory;
 import com.licious.ordermanagementsystem.model.Order;
+import com.licious.ordermanagementsystem.model.OrderOperation;
 import com.licious.ordermanagementsystem.utils.OrderProcessor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,8 +27,9 @@ public class OrderServiceImpl implements OrderService {
         Order updatedOrder = OrderFactory.createOrder(order);
         // Save order to concurrent data structure
         logger.info("Adding Order to Order Queue");
-        orderProcessor.enqueueOrder(updatedOrder);
+        orderProcessor.enqueueOrder(updatedOrder, OrderOperation.CREATE);
         return order;
     }
+
 }
 
