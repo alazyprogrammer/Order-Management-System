@@ -4,10 +4,16 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.licious.ordermanagementsystem.model.Order;
 import com.licious.ordermanagementsystem.repository.OrderRepository;
 
 public class OrderProcessor {
+
+    private static final Logger logger = LogManager.getLogger(OrderProcessor.class);
+
     private ConcurrentLinkedQueue<Order> orderQueue = new ConcurrentLinkedQueue<>();
     private OrderRepository orderRepository;
     private ExecutorService executorService;
@@ -50,7 +56,7 @@ public class OrderProcessor {
 
         private void processOrder(Order order) {
             // Add your order processing logic here
-            System.out.println("\nProcessing order: " + order.getOrderId());
+            logger.info("Processing order: " + order.getOrderId());
             orderRepository.save(order);
         }
     }

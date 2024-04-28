@@ -7,14 +7,12 @@ import org.springframework.stereotype.Component;
 import com.licious.ordermanagementsystem.model.Order;
 import com.licious.ordermanagementsystem.model.Customer;
 import com.licious.ordermanagementsystem.model.Product;
-import com.licious.ordermanagementsystem.model.OrderDetails;
 
 import java.util.Map;
 
 @Component
 public class Database {
     private final Map<String, Order> ordersMap = new ConcurrentHashMap<>();
-    private final Map<String, OrderDetails> orderDetailsMap = new ConcurrentHashMap<>();
     private final Map<String, Customer> customersMap = new ConcurrentHashMap<>();
     private final Map<Long, Product> productsMap = new ConcurrentHashMap<>();
 
@@ -37,21 +35,17 @@ public class Database {
 
     private void initializeProducts() {
         // Add 5 sample products
-        productsMap.put(1L, new Product(1L, "Product A", "Description for Product A", 10.00));
-        productsMap.put(2L, new Product(2L, "Product B", "Description for Product B", 20.00));
-        productsMap.put(3L, new Product(3L, "Product C", "Description for Product C", 30.00));
-        productsMap.put(4L, new Product(4L, "Product D", "Description for Product D", 40.00));
-        productsMap.put(5L, new Product(5L, "Product E", "Description for Product E", 50.00));
+        productsMap.put(1L, new Product(1L, "Product A", "Description for Product A", 10.00, 5));
+        productsMap.put(2L, new Product(2L, "Product B", "Description for Product B", 20.00, 3));
+        productsMap.put(3L, new Product(3L, "Product C", "Description for Product C", 30.00, 6));
+        productsMap.put(4L, new Product(4L, "Product D", "Description for Product D", 40.00, 10));
+        productsMap.put(5L, new Product(5L, "Product E", "Description for Product E", 50.00, 1));
     }
 
     // Methods to access and manipulate the maps
 
     public Map<String, Order> getOrdersMap() {
         return ordersMap;
-    }
-
-    public Map<String, OrderDetails> getOrderDetailsMap() {
-        return orderDetailsMap;
     }
 
     public Map<String, Customer> getCustomersMap() {
