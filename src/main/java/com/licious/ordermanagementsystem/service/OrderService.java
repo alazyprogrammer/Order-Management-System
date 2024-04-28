@@ -8,5 +8,6 @@ import com.licious.ordermanagementsystem.model.Order;
 public interface OrderService {
 
     Order createOrder(Order order);
+    Order retrieveOrder(String orderId, String customerId);
     // Other service methods
 }
