@@ -8,7 +8,11 @@ This is an Order Management System application designed to manage orders for a b
 2. **Navigate to the project directory**: `cd order-management-system`
 3. **Build the project**: `./gradlew build`
 4. **Run the application**: `./gradlew bootRun`
-5. **Access the application**: Open a web browser and go to `http://localhost:8080`
+5. **Access the sample API calls for testing (use terminal)**:
+   - [Create Order API](#create-order)
+   - [Update Order Status API](#update-order-status)
+   - [Cancel Order API](#cancel-order)
+   - [Retrieve Order Details API](#retrieve-order-details)
 
 ## API Documentation
 
