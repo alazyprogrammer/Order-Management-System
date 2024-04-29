@@ -43,10 +43,6 @@ The Order Management System comprises several key components, including:
 
 ## Setup
 
----
-
-## Setup
-
 1. **Install Git CLI**: If you haven't already, you can download and install Git CLI from [here](https://git-scm.com/downloads).
 2. **Clone the repository**: `git clone <repository-url>`
 3. **Navigate to the project directory**: `cd Order-Management-System`
