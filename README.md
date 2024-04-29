@@ -143,6 +143,47 @@ This is an Order Management System application designed to manage orders for a b
 
 ---
 
+## API Validations and Security
+
+### Validations
+The Order Management System incorporates comprehensive validations to ensure the integrity and consistency of data processed by its APIs. Each API endpoint performs specific validations to validate incoming requests and ensure that only valid data is processed. Here's a breakdown of the validations performed for each API:
+
+1. **Create Order API** (`POST /orders/create`):
+   - Validate `customerId` is not null or empty.
+   - Validate `products` map is not null or empty.
+   - Validate each product ID and quantity.
+   - Check if the customer exists.
+   - Additional business rule validations (e.g., product stock availability).
+
+2. **Update Order Status API** (`PUT /orders/status`):
+   - Validate `orderId`, `customerId`, and `status`.
+   - Validate order status against predefined values.
+   - Validate order existence.
+   - Validate user existence.
+   - Validate status transition based on the current order status.
+
+3. **Cancel Order API** (`DELETE /orders/{orderId}/cancel`):
+   - Validate `orderId`.
+   - Check if order exists.
+   - Validate order status for cancellation.
+
+4. **Retrieve Order Details API** (`GET /orders/{orderId}`):
+   - Validate `orderId`.
+   - Check if the order exists.
+
+### Authentication and Authorization
+While the Order Management System focuses on data validation and integrity, enhancing security is paramount for protecting sensitive information and preventing unauthorized access. Implementing authentication and authorization mechanisms can further enhance the security of the APIs. Here are some approaches to consider:
+
+- **Authentication**: Implement user authentication to verify the identity of users accessing the system. This can be achieved using techniques such as JSON Web Tokens (JWT), OAuth, or basic authentication.
+  
+- **Authorization**: Enforce access control policies to determine which users have permission to access specific APIs or perform certain actions. Role-based access control (RBAC) or attribute-based access control (ABAC) can be employed to manage authorization rules effectively.
+
+- **Secure Communication**: Ensure that communication between clients and the server is encrypted using HTTPS to prevent eavesdropping and man-in-the-middle attacks.
+
+By implementing robust authentication and authorization mechanisms, the Order Management System can protect sensitive data, mitigate security risks, and comply with regulatory requirements, thereby enhancing overall system security.
+
+---
+
 ## Concurrency Model
 
 The Order Management System employs a robust concurrency model to handle multiple requests concurrently, improve performance, and maintain data integrity. This model is achieved through the use of ConcurrentHashMap, ConcurrentQueue, and threading mechanisms.
