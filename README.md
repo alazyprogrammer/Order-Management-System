@@ -45,9 +45,9 @@ The Order Management System comprises several key components, including:
 1. **Clone the repository**: `git clone <repository-url>`
 2. **Navigate to the project directory**: `cd Order-Management-System`
 3. **Build the project**: `./gradlew build`
-4. **Run the application**: `./gradlew bootRun`
-5. **Access the sample API calls for testing (use terminal)**:
-   - [Create Order API](#create-order)
+4. **Run the application**: `./gradlew bootRun` (Make sure port 8080 is not occupied before running the application)
+5. **Access the sample API calls for testing (use another instance of terminal)**:
+   - [Create Order API](#create-order) - Once an orderId is generated keep a note of it and replace orderId for other API calls.
    - [Update Order Status API](#update-order-status)
    - [Cancel Order API](#cancel-order)
    - [Retrieve Order Details API](#retrieve-order-details)
