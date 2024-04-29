@@ -141,8 +141,32 @@ This is an Order Management System application designed to manage orders for a b
   }
   ```
 
+---
+
 ## Concurrency Model
-The application follows a multithreaded architecture to handle multiple requests concurrently. Spring Boot provides built-in support for handling concurrency with thread-safe components such as controllers and services. Additionally, synchronization mechanisms like locks or atomic operations are used to ensure thread safety when accessing shared resources, such as the order database.
+
+The Order Management System employs a robust concurrency model to handle multiple requests concurrently, improve performance, and maintain data integrity. This model is achieved through the use of ConcurrentHashMap, ConcurrentQueue, and threading mechanisms.
+
+### ConcurrentHashMap
+- **Enhanced Data Access**: ConcurrentHashMap is used to store orders and products efficiently. This thread-safe data structure allows multiple threads to read and write data concurrently without blocking or risking data corruption.
+- **Data Integrity**: By using ConcurrentHashMap, the system ensures that operations such as creating, updating, canceling, and retrieving orders can be performed safely without compromising data integrity.
+
+### ConcurrentQueue
+- **Asynchronous Processing**: Although not explicitly used in the provided code snippets, ConcurrentQueue could be employed to queue orders for asynchronous processing. This allows orders to be processed in the background without blocking the main application thread.
+- **High Concurrency**: ConcurrentQueue provides high concurrency for enqueueing and dequeueing operations, enabling efficient handling of orders in a multi-threaded environment.
+
+### Threading
+- **Concurrent Request Handling**: Threading is extensively utilized in the Spring Boot framework to handle concurrent requests from multiple clients. Each incoming request is processed by a separate thread, allowing the application to handle multiple requests simultaneously.
+- **Improved Performance**: By leveraging threading, the system can efficiently utilize available resources and respond to requests in parallel, leading to improved performance and responsiveness.
+
+### Benefits
+- **Concurrency**: The use of ConcurrentHashMap, ConcurrentQueue, and threading mechanisms ensures that the system can handle concurrent operations such as creating, updating, canceling, and retrieving orders efficiently and safely.
+- **Performance**: The concurrency model enhances performance by allowing the system to process multiple requests concurrently, maximizing resource utilization and reducing response times.
+- **Data Integrity**: By employing thread-safe data structures and synchronization mechanisms, the system maintains data integrity and consistency, preventing data corruption or race conditions.
+
+By implementing this robust concurrency model, the Order Management System achieves high throughput, responsiveness, and reliability, making it suitable for handling large volumes of orders and serving multiple clients concurrently.
+
+---
 
 ## Contributors
 - Sakir Beg
