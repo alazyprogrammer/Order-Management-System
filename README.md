@@ -43,7 +43,7 @@ The Order Management System comprises several key components, including:
 
 ## Setup
 1. **Clone the repository**: `git clone <repository-url>`
-2. **Navigate to the project directory**: `cd order-management-system`
+2. **Navigate to the project directory**: `cd Order-Management-System`
 3. **Build the project**: `./gradlew build`
 4. **Run the application**: `./gradlew bootRun`
 5. **Access the sample API calls for testing (use terminal)**:
