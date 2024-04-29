@@ -59,7 +59,6 @@ public class OrderControllerTest {
         ResponseEntity<?> response = orderController.createOrder(request);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        // Add more assertions for the error message in the response body
     }
 
     @Test
@@ -87,7 +86,6 @@ public class OrderControllerTest {
 
         // Validate the response
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        // Add assertions for the error message in the response body
     }
 
     @Test
@@ -102,7 +100,6 @@ public class OrderControllerTest {
 
         // Validate the response
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        // Add assertions for the error message in the response body
     }
 
     @Test
@@ -115,7 +112,6 @@ public class OrderControllerTest {
 
         // Validate the response
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        // Add assertions for the error message in the response body
     }
 
     @Test
@@ -129,7 +125,6 @@ public class OrderControllerTest {
 
         // Validate the response
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        // Add assertions for the error message in the response body
     }
 
     // Utility method to create mock customers map

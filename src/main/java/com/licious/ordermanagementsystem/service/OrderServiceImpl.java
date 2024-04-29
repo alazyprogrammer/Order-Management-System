@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(OrderRequest orderRequest) {
         // Process the order and enqueue it for background processing
-        // Convert DTO to domain model
+        // Convert request to order model
         Order initialOrder = OrderFactory.initializeOrder(orderRequest);
         // Save order to concurrent data structure
         logger.info("Adding Order to Order Queue");

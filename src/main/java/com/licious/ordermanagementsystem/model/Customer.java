@@ -13,8 +13,8 @@ public class Customer {
 
     private String customerFirstName;
     private String customerLastName;
-    private String customerEmail; // Unique Identifier
-    private String customerPhoneNumber;
+    private String customerEmail;
+    private String customerPhoneNumber; // Unique Identifier
     private String customerAddress;
     private String customerCity;
     private String customerState;

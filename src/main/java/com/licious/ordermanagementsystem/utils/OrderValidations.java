@@ -55,8 +55,6 @@ public class OrderValidations {
     }
 
     public static ResponseEntity<String> validateStatusTransition(OrderStatus currentStatus, OrderStatus newStatus) {
-        // Your logic to determine if the status transition is allowed
-        // Example: If currentStatus is "pending", allow transition to "processing"
         if (!isValidStatusTransition(currentStatus, newStatus)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Invalid status transition.");
@@ -80,7 +78,7 @@ public class OrderValidations {
     }
 
     private static boolean isValidStatusTransition(OrderStatus currentStatus, OrderStatus newStatus) {
-        // Your logic to determine if the status transition is allowed
+        // logic to determine if the status transition is allowed
         // Example: If EcurrentStatus is "pending", allow transition to "processing"
         switch (currentStatus) {
             case CREATED:

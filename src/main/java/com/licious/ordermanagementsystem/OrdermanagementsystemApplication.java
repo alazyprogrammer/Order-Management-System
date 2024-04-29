@@ -16,7 +16,7 @@ public class OrdermanagementsystemApplication {
 	@Bean
     public OrderProcessor orderProcessor() {
         // Initialize OrderProcessor with the desired number of threads
-        return new OrderProcessor(8); // Example: Using 5 worker threads
+        return new OrderProcessor(8);
     }
 
 }
