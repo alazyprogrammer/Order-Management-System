@@ -45,7 +45,7 @@ The Order Management System comprises several key components, including:
 
 1. **Install Git CLI**: If you haven't already, you can download and install Git CLI from [here](https://git-scm.com/downloads).
 
-2. **Install Java Development Kit (JDK) (Preferably JDK 21)**: Ensure you have Java Development Kit (JDK) installed on your system. You can download and install JDK from [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) or [OpenJDK](https://adoptopenjdk.net/).
+2. **Install Java Development Kit (JDK) (Preferably JDK 21)**: Ensure you have Java Development Kit (JDK) installed on your system. You can download and install JDK from [here](https://www.oracle.com/java/technologies/downloads/#java21) or [OpenJDK](https://adoptopenjdk.net/).
 
 3. **Set up JAVA_HOME environment variable (if not already setup as part of installation)**:
    - **Windows**:
