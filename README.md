@@ -42,7 +42,6 @@ The Order Management System comprises several key components, including:
 ---
 
 ## Setup
-Absolutely, here's the updated setup section with a step to install Git CLI:
 
 ---
 
