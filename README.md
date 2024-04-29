@@ -44,12 +44,67 @@ The Order Management System comprises several key components, including:
 ## Setup
 
 1. **Install Git CLI**: If you haven't already, you can download and install Git CLI from [here](https://git-scm.com/downloads).
-2. **Please use an IDE and its integrated terminal preferably Visual studio code**
-3. **Clone the repository**: `git clone <repository-url>`
-4. **Navigate to the project directory**: `cd Order-Management-System`
-5. **Build the project**: `./gradlew build`
-6. **Run the application**: `./gradlew bootRun` (Make sure port 8080 is not occupied before running the application)
-7. **Access the sample API calls for testing (use another instance of terminal)**:
+
+2. **Install Java Development Kit (JDK)**: Ensure you have Java Development Kit (JDK) installed on your system. You can download and install JDK from [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) or [OpenJDK](https://adoptopenjdk.net/).
+
+3. **Set up JAVA_HOME environment variable (if not already setup as part of installation)**:
+   - **Windows**:
+     - Right-click on "This PC" or "My Computer" and select "Properties".
+     - Click on "Advanced system settings".
+     - In the System Properties window, click on the "Environment Variables" button.
+     - Under "System Variables", click "New" and add a variable named `JAVA_HOME` with the path to your JDK installation directory (e.g., `C:\Program Files\Java\jdk-11`).
+     - Click "OK" to save the changes.
+   - **macOS**:
+     - Open Terminal and execute the following command to open the bash profile:
+       ```
+       nano ~/.bash_profile
+       ```
+     - Add the following line at the end of the file, replacing `<path-to-jdk>` with the path to your JDK installation directory:
+       ```
+       export JAVA_HOME=<path-to-jdk>
+       ```
+     - Press `Ctrl + X` to exit, then press `Y` to save the changes.
+     - Execute the following command to apply the changes:
+       ```
+       source ~/.bash_profile
+       ```
+   - **Linux**:
+     - Open Terminal and execute the following command to open the bashrc file:
+       ```
+       nano ~/.bashrc
+       ```
+     - Add the following line at the end of the file, replacing `<path-to-jdk>` with the path to your JDK installation directory:
+       ```
+       export JAVA_HOME=<path-to-jdk>
+       ```
+     - Press `Ctrl + X` to exit, then press `Y` to save the changes.
+     - Execute the following command to apply the changes:
+       ```
+       source ~/.bashrc
+       ```
+
+4. **Use an integrated terminal of any IDE**: For development and testing, you can use an integrated terminal of any IDE, preferably Visual Studio Code, to execute commands and interact with the application.
+5. **Clone the repository**: Open your terminal and run the following command to clone the repository:
+   ```
+   git clone <repository-url>
+   ```
+   Replace `<repository-url>` with the URL of the Git repository.
+
+6. **Navigate to the project directory**: Use the `cd` command to navigate to the project directory:
+   ```
+   cd Order-Management-System
+   ```
+
+7. **Build the project**: Run the following command to build the project using Gradle:
+   ```
+   ./gradlew build
+   ```
+
+8. **Run the application**: Execute the following command to run the application(Make sure port 8080 is not occupied):
+   ```
+   ./gradlew bootRun
+   ```
+9. **Access the sample API calls for testing (use another instance of terminal)**:
    - [Create Order API](#create-order) - Once an orderId is generated keep a note of it and replace orderId for other API calls.
    - [Update Order Status API](#update-order-status)
    - [Cancel Order API](#cancel-order)
