@@ -42,11 +42,18 @@ The Order Management System comprises several key components, including:
 ---
 
 ## Setup
-1. **Clone the repository**: `git clone <repository-url>`
-2. **Navigate to the project directory**: `cd Order-Management-System`
-3. **Build the project**: `./gradlew build`
-4. **Run the application**: `./gradlew bootRun` (Make sure port 8080 is not occupied before running the application)
-5. **Access the sample API calls for testing (use another instance of terminal)**:
+Absolutely, here's the updated setup section with a step to install Git CLI:
+
+---
+
+## Setup
+
+1. **Install Git CLI**: If you haven't already, you can download and install Git CLI from [here](https://git-scm.com/downloads).
+2. **Clone the repository**: `git clone <repository-url>`
+3. **Navigate to the project directory**: `cd Order-Management-System`
+4. **Build the project**: `./gradlew build`
+5. **Run the application**: `./gradlew bootRun` (Make sure port 8080 is not occupied before running the application)
+6. **Access the sample API calls for testing (use another instance of terminal)**:
    - [Create Order API](#create-order) - Once an orderId is generated keep a note of it and replace orderId for other API calls.
    - [Update Order Status API](#update-order-status)
    - [Cancel Order API](#cancel-order)
