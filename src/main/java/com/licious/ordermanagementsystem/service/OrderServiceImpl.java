@@ -7,6 +7,7 @@ import com.licious.ordermanagementsystem.factory.OrderFactory;
 import com.licious.ordermanagementsystem.model.Order;
 import com.licious.ordermanagementsystem.model.OrderOperation;
 import com.licious.ordermanagementsystem.model.OrderStatus;
+import com.licious.ordermanagementsystem.model.api.OrderRequest;
 import com.licious.ordermanagementsystem.repository.OrderRepository;
 import com.licious.ordermanagementsystem.utils.OrderProcessor;
 import org.apache.logging.log4j.LogManager;
@@ -24,14 +25,14 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Override
-    public Order createOrder(Order order) {
+    public Order createOrder(OrderRequest orderRequest) {
         // Process the order and enqueue it for background processing
         // Convert DTO to domain model
-        Order initialOrder = OrderFactory.initializeOrder(order);
+        Order initialOrder = OrderFactory.initializeOrder(orderRequest);
         // Save order to concurrent data structure
         logger.info("Adding Order to Order Queue");
         orderProcessor.enqueueOrder(initialOrder, OrderOperation.CREATE);
-        return order;
+        return initialOrder;
     }
 
     @Override
@@ -54,6 +55,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order cancelOrder(String orderId) {
         // Cancelling an order
+        logger.info("Cancelling the order with ID: {}", orderId);
         return this.updateOrderStatus(orderId, OrderStatus.CANCELLED);
     }
 

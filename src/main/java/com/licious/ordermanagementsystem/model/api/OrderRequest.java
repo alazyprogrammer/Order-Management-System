@@ -1,13 +1,14 @@
-package com.licious.ordermanagementsystem.model;
+package com.licious.ordermanagementsystem.model.api;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+
+import org.springframework.lang.NonNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
@@ -15,17 +16,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Order {
+public class OrderRequest {
 
     @NonNull
     private String customerId;
-    private String orderId;
     private Map<Long, Integer> products;
     private Double shippingCharge;
     private Double subTotal;
     private LocalDateTime orderDate;
     private boolean paymentStatus;
-    private OrderStatus orderStatus;
 
 }
-

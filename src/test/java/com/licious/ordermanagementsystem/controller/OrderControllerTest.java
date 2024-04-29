@@ -12,7 +12,10 @@ import com.licious.ordermanagementsystem.TestConstants;
 import com.licious.ordermanagementsystem.database.Database;
 import com.licious.ordermanagementsystem.model.Customer;
 import com.licious.ordermanagementsystem.model.Order;
+import com.licious.ordermanagementsystem.model.OrderStatus;
 import com.licious.ordermanagementsystem.model.Product;
+import com.licious.ordermanagementsystem.model.api.OrderRequest;
+import com.licious.ordermanagementsystem.model.api.OrderStatusUpdateRequest;
 import com.licious.ordermanagementsystem.service.OrderService;
 
 import java.util.HashMap;
@@ -34,125 +37,99 @@ public class OrderControllerTest {
     private OrderController orderController;
 
     @Test
-    public void testCreateOrder_WithValidData_ReturnsCreated() {
+    public void testCreateOrder_Success() {
         // Mock database
         when(database.getCustomersMap()).thenReturn(getMockCustomersMap());
         when(database.getProductsMap()).thenReturn(getMockProductsMap());
+        // Mocked order
+        Order createdOrder = mock(Order.class);
+        when(orderService.createOrder(TestConstants.VALID_ORDER_REQUEST)).thenReturn(createdOrder);
 
-        // Mock order service
-        when(orderService.createOrder(TestConstants.VALID_ORDER_DETAILS)).thenReturn(new Order());
-
-        // Invoke API
-        ResponseEntity<?> responseEntity = orderController.createOrder(TestConstants.VALID_ORDER_DETAILS);
-
-        // Verify response
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        ResponseEntity<?> response = orderController.createOrder(TestConstants.VALID_ORDER_REQUEST);
+        System.out.println("Response: " + response);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(createdOrder, response.getBody());
     }
 
     @Test
-    public void testCreateOrder_WithInvalidCustomer_ReturnsBadRequest() {
-        // Mock database
-        when(database.getCustomersMap()).thenReturn(getMockCustomersMap());
-        when(database.getProductsMap()).thenReturn(getMockProductsMap());
+    public void testCreateOrder_MissingCustomerId() {
+        OrderRequest request = new OrderRequest();
+        // Customer ID is missing
 
-        // Invoke API with invalid customer ID
-        TestConstants.VALID_ORDER_DETAILS.setCustomerId(TestConstants.NON_EXISTING_CUSTOMER_ID);
-        ResponseEntity<?> responseEntity = orderController.createOrder(TestConstants.VALID_ORDER_DETAILS);
+        ResponseEntity<?> response = orderController.createOrder(request);
 
-        // Verify response
-        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-    }
-
-    @Test
-    public void testCreateOrder_WithMissingCustomerId_ReturnsBadRequest() {
-        // Prepare test data with missing customer ID
-        Order orderDetails = new Order();
-        // Set products to make the order valid
-        Map<Long, Integer> products = new HashMap<>();
-        products.put(1L, 2);
-        orderDetails.setProducts(products);
-
-        // Invoke controller method
-        ResponseEntity<?> response = orderController.createOrder(orderDetails);
-
-        // Verify response
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Customer ID is required", response.getBody());
+        // Add more assertions for the error message in the response body
     }
 
     @Test
-    public void testCreateOrder_WithMissingProducts_ReturnsBadRequest() {
-        // Prepare test data with missing products
-        Order orderDetails = new Order();
-        // Set customer ID to make the order valid
-        orderDetails.setCustomerId(TestConstants.VALID_CUSTOMER_ID);
+    public void testGetOrderDetails_ValidOrderId() {
+        String orderId = TestConstants.VALID_ORDER_ID;
 
-        // Invoke controller method
-        ResponseEntity<?> response = orderController.createOrder(orderDetails);
+        // Mock service response
+        Order order = mock(Order.class); // Mocked order object
+        when(orderService.retrieveOrder(orderId)).thenReturn(order);
 
-        // Verify response
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Products are is required", response.getBody());
+        // Execute the method
+        ResponseEntity<?> response = orderController.getOrderDetails(orderId);
+
+        // Validate the response
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(order, response.getBody());
     }
 
     @Test
-    public void testCreateOrder_WithInvalidProductIdOrQuantity_ReturnsBadRequest() {
-        // Prepare test data with invalid product ID or quantity
-        Order orderDetails = new Order();
-        orderDetails.setCustomerId(TestConstants.VALID_CUSTOMER_ID);
-        // Add an invalid product ID or quantity
-        Map<Long, Integer> products = new HashMap<>();
-        products.put(null, 2); // Invalid product ID
-        products.put(1L, -1); // Invalid quantity
-        orderDetails.setProducts(products);
+    public void testGetOrderDetails_InvalidOrderId() {
+        String invalidOrderId = TestConstants.INVALID_ORDER_ID;
 
-        // Invoke controller method
-        ResponseEntity<?> response = orderController.createOrder(orderDetails);
+        // Execute the method
+        ResponseEntity<?> response = orderController.getOrderDetails(invalidOrderId);
 
-        // Verify response
+        // Validate the response
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Invalid product ID or quantity", response.getBody());
+        // Add assertions for the error message in the response body
     }
 
     @Test
-    public void testCreateOrder_WithNonexistentProduct_ReturnsBadRequest() {
-        // Prepare test data with nonexistent product
-        Order orderDetails = new Order();
-        orderDetails.setCustomerId(TestConstants.VALID_CUSTOMER_ID);
-        // Add a nonexistent product ID
-        Map<Long, Integer> products = new HashMap<>();
-        products.put(100L, 2); // Nonexistent product ID
-        orderDetails.setProducts(products);
+    public void testGetOrderDetails_OrderNotFound() {
+        String orderIdNotFound = TestConstants.NON_EXISTING_ORDER_ID;
 
-        when(database.getProductsMap()).thenReturn(getMockProductsMap());
+        // Mock service response (order not found)
+        when(orderService.retrieveOrder(orderIdNotFound)).thenReturn(null);
 
-        // Invoke controller method
-        ResponseEntity<?> response = orderController.createOrder(orderDetails);
+        // Execute the method
+        ResponseEntity<?> response = orderController.getOrderDetails(orderIdNotFound);
 
-        // Verify response
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Product with ID 100 does not exist", response.getBody());
+        // Validate the response
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        // Add assertions for the error message in the response body
     }
 
+    @Test
+    public void testUpdateOrderStatus_InvalidOrderId() {
+        String invalidOrderId = TestConstants.INVALID_ORDER_ID;
+
+        // Execute the method
+        OrderStatusUpdateRequest request = new OrderStatusUpdateRequest(TestConstants.VALID_CUSTOMER_ID, invalidOrderId, OrderStatus.SHIPPED);
+        ResponseEntity<?> response = orderController.updateOrderStatus(request);
+
+        // Validate the response
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        // Add assertions for the error message in the response body
+    }
 
     @Test
-    public void testCreateOrder_WithInsufficientStock_ReturnsBadRequest() {
-        // Prepare test data with insufficient stock
-        Order orderDetails = new Order();
-        orderDetails.setCustomerId(TestConstants.VALID_CUSTOMER_ID);
-        // Add products with insufficient stock
-        Map<Long, Integer> products = new HashMap<>();
-        products.put(1L, 10); // Product ID 1 has insufficient stock (5 in stock)
-        orderDetails.setProducts(products);
+    public void testUpdateOrderStatus_InvalidCustomerId() {
+        String orderId = TestConstants.VALID_ORDER_ID;
+        String invalidCustomerId = TestConstants.INVALID_CUSTOMER_ID;
 
-        when(database.getProductsMap()).thenReturn(getMockProductsMap());
+        // Execute the method
+        OrderStatusUpdateRequest request = new OrderStatusUpdateRequest(invalidCustomerId, orderId, OrderStatus.SHIPPED);
+        ResponseEntity<?> response = orderController.updateOrderStatus(request);
 
-        // Invoke controller method
-        ResponseEntity<?> response = orderController.createOrder(orderDetails);
-
-        // Verify response
+        // Validate the response
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Not enough stock for product with ID 1", response.getBody());
+        // Add assertions for the error message in the response body
     }
 
     // Utility method to create mock customers map

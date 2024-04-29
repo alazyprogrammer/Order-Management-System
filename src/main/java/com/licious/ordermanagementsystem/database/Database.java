@@ -55,7 +55,6 @@ public class Database {
     public Map<Long, Product> getProductsMap() {
         return productsMap;
     }
-
-    // Other methods to manipulate the maps, if needed
+    
 }
 

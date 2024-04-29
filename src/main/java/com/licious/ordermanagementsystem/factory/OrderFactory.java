@@ -2,15 +2,18 @@ package com.licious.ordermanagementsystem.factory;
 
 import java.util.UUID;
 
+import com.licious.ordermanagementsystem.Mapper.OrderMapper;
 import com.licious.ordermanagementsystem.model.Order;
 import com.licious.ordermanagementsystem.model.OrderStatus;
+import com.licious.ordermanagementsystem.model.api.OrderRequest;
 
 public class OrderFactory {
-    public static Order initializeOrder(Order order) {
+
+    public static Order initializeOrder(OrderRequest orderRequest) {
         // Create and return a new Order instance
+        Order order = OrderMapper.mapOrderRequestToOrder(orderRequest);
         // Generate a UUID for the orderId
         UUID orderId = UUID.randomUUID();
-        // Create and return a new OrderDetails instance with orderId
         order.setOrderId(orderId.toString());
         // Update order status
         OrderStatus orderStatus = order.isPaymentStatus() ? OrderStatus.CREATED : OrderStatus.PENDING;
@@ -23,9 +26,5 @@ public class OrderFactory {
         return order;
     }
 
-    public static Order createOrder(String orderId, String customerId) {
-        // Creating order object using orderId and customerId
-        return Order.builder().orderId(orderId).customerId(customerId).build();
-    }
 }
 
