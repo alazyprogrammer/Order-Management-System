@@ -114,7 +114,7 @@ This is an Order Management System application designed to manage orders for a b
   ```
 - **Sample Response**:
   ```
-  Order with ID order123 has been cancelled successfully.
+  Order with ID cad8f5bf-ae8e-49da-912b-b7790de30bdc has been cancelled successfully.
   ```
 
 ### Retrieve Order Details
